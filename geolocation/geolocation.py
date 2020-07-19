@@ -1,3 +1,18 @@
+"""
+# This is a simple program that serves the function for locating 
+# the device geologically with the external IP address of the device.
+# The external IP is fetched by the AWS check ip service, and the 
+# geolocation is obtained by geoip2 library. 
+# 
+# This program requires the GeoLite2-City.mmdb database in the same 
+# directory to run. This database is from GeoLite.
+# 
+# ----------------------------------------
+# Author: Jerry Cheng;
+# ENGR-2050, Section 4, Team A, Summer 2020;
+# Last Update: 2020.07.19
+
+"""
 import requests
 import geoip2.database
 import os
