@@ -18,6 +18,13 @@ import geoip2.database
 import os
 
 class Geoloc(object):
+    # storage class, read and simplify the response from the geoip2
+    # library. It keeps the city, state, country, and postal code
+    # from the device
+    # =========================
+    # This class contains 1 method:
+    #   __str__(self): standard method for str output: 0in; 1out: str;
+
     def __init__(self, resp):
         self.city = resp.city.name
         self.state = resp.subdivisions.most_specific.iso_code
@@ -32,11 +39,20 @@ class Geoloc(object):
         return 
 
 def fetch_ip():
+    # helper function, fetch the external ip of the product with 
+    # AWS check ip services, return the external ip address in a
+    # string
+    # 0in; 1out: str;
+
     ip_device = requests.get("https://checkip.amazonaws.com").text.strip()
     return ip_device
 
 
 def fetch_location(ip_device):
+    # helper function, fetch the geolocation of the device with 
+    # the given external IP, return the geolocation with a Geoloc
+    # class
+    # 1in: str; 1out: class Geoloc;
     
     reader = geoip2.database.Reader(os.getcwd())
     response = reader.city(ip_device)
@@ -45,9 +61,17 @@ def fetch_location(ip_device):
     
     return result
 
+def get_location():
+    # packaged function for import, return the geolocation
+    # of the device in a Geoloc class
+    # 0in; 1out: class Geoloc
+    return fetch_location(fetch_ip())
+
+
 if __name__ == "__main__":
-    ip = fetch_ip()
-    a = fetch_location
-    print(a)
     
+    # for testing ONLY, do NOT run __main__ while imported
+    ip_h = fetch_ip()
+    print(ip_h)
+    print("DONE")
     
